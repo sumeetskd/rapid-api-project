@@ -1,0 +1,16 @@
+{
+  "id": "mig_cj1e966envq755ss2slg",
+  "parentID": "mig_cj1e95menvq755ss2skg",
+  "checksum": "1:90679a095f9585881765638a5dd1b96772e68c53fbdd0226d34b6ade243ad3d8",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "image",
+          "type": "string"
+        },
+        "table": "ingredients"
+      }
+    }
+  ]
+}

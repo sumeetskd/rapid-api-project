@@ -1,0 +1,11 @@
+{
+  "id": "mig_cj1e95menvq755ss2skg",
+  "checksum": "1:408ef7f41868d00a1ec85f4ccf73c987ca1a7d8916623ec2b58198147644bc79",
+  "operations": [
+    {
+      "addTable": {
+        "table": "ingredients"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "mig_cj1e9cd6cg15gieqj81g",
+  "parentID": "mig_cj1e9c6envq755ss2sp0",
+  "checksum": "1:7ec2a1afab6c5f9a09b315b382ea90e5c69a18b3ecd9747d0bc166358da5b694",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string"
+        },
+        "table": "orderpizza"
+      }
+    }
+  ]
+}

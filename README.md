@@ -13,3 +13,11 @@ npm install --save-dev rimraf
 add in package.json:
 "build": "npm install && rimraf ./build && tsc"
 "start": "node run build && node build/index.js "
+
+
+npm install dotenv -> allows us to use env variables locally
+
+add .env in .gitignore file
+
+
+NOTE: app.use() acts as a middleware in express
