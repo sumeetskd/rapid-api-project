@@ -11,41 +11,70 @@ app.use(express.json());
 
 const xata = getXataClient();
 
+type MyResponse<T> =
+| {
+    err: string;
+} | {
+    data: any;
+}
 
-app.get('/api/jobs', async (req: Request, res: Response)=>{
+app.get('/api/jobs', async (req: Request, res: Response<MyResponse<Ingredients[]>>)=>{
     try {
         const data = await xata.db.ingredients.getAll();
-        res.json(data);
+        return res.status(200).json({data:data});
       } catch (err) {
         console.error(err);
-        return res.status(500).json({ err: 'Something went wrong' });
+        return res.status(500).json({err: 'Something went wrong' });
       }
 })
 
-app.post('/api/jobs', async (req: Request, res: Response)=>{
+app.post('/api/jobs', async (req: Request<{},{},Ingredients>, res: Response<MyResponse<Ingredients>>)=>{
     try{
         const item = req.body;
         const createdJob = await xata.db.ingredients.create(item);
         // throw new Error('error');
-        res.json(createdJob);
+        return res.status(201).json({data:createdJob});
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({err:'Something went wrong'});
+    }      
+})
+
+app.put('/api/jobs/:id', async (req: Request<{id:string},{},Ingredients>, res: Response<MyResponse<Ingredients>>)=>{
+    try{
+        const id = req.params.id;   //params.id has to match the url parameter /:id
+        const item = req.body;
+        const updatedIng = await xata.db.ingredients.update(id, item);
+
+        if(!updatedIng){
+            return res.status(404).json({err: 'Ingredient Not Found'});
+        }
+
+        return res.status(201).json({data:updatedIng});
+    }
+    catch(err){
+        console.error(err);
+        return res.status(500).json({err:'Something went wrong'});
+    }
+    
+})
+
+app.delete('/api/jobs/:id', 
+async (req: Request<{id:string},{},{}>, res: Response<MyResponse<Ingredients>>)=>{
+    try{
+        const id = req.params.id;
+        const deleteRecord = await xata.db.ingredients.delete(id);
+        if(!deleteRecord){
+            return res.status(404).json({err: "Ingredient Not Found"})
+        }
+        return res.status(200).json({data:deleteRecord});
     }
     catch(err){
         console.error(err);
         res.status(500).json({err:'Something went wrong'});
-    }      
-})
+    }
 
-app.put('/api/jobs/:id', async (req: Request, res: Response)=>{
-    const id = req.params.id;   //params.id has to match the url parameter /:id
-    const item = req.body;
-    const updatedIng = await xata.db.ingredients.update(id, item);
-    res.json(updatedIng);
-})
-
-app.delete('/api/jobs/:id', async (req: Request, res: Response)=>{
-    const id = req.params.id;
-    const deleteRecord = await xata.db.ingredients.delete(id);
-    res.json(deleteRecord);
 })
 
 app.listen(port, ()=>{

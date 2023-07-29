@@ -37,3 +37,39 @@ git add .
 Commit it:
 
 git commit -m ".gitignore is now working"
+
+
+### Queries:
+
+*why not to use 'any'*
+
+somewhere you have to dynamically determine the type of data 
+coming from the response so we can use a generic class
+```
+type MyResponse<T>{
+
+}
+```
+T -> is a generic type
+
+```
+type MyResponse<T> =
+| {
+    err: string;
+} | {
+    data: any;
+}
+
+app.get('/api/jobs', async (req: Request, res: Response<MyResponse<Ingredients[]>>)=>{	//T-> generic is referring to Ingredients[] array
+    try {
+        const data = await xata.db.ingredients.getAll();
+        res.json({data:data});
+      } catch (err) {
+        console.error(err);
+        return res.status(500).json({err: 'Something went wrong' });
+      }
+})
+```
+we can also define how the response body gonna look like:
+
+`req: Request<{},{},Job>`
