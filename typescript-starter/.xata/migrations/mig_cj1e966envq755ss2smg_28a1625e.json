@@ -1,0 +1,16 @@
+{
+  "id": "mig_cj1e966envq755ss2smg",
+  "parentID": "mig_cj1e966envq755ss2slg",
+  "checksum": "1:28a1625e4a60941e88c752b3616582a315d7ba38dc3837307b3ba0d88e9b79d3",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "price",
+          "type": "int"
+        },
+        "table": "ingredients"
+      }
+    }
+  ]
+}
